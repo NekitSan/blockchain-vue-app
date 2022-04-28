@@ -1,0 +1,26 @@
+$color-red: #DA554A
+$colot-text: #343840
+
+@mixin svgIcon($img, $w, $h, $color)
+    width: $w+px
+    height: $h+px
+    -webkit-mask-image: url('@/assets/icons/'+$img+'.svg')
+    mask-image: url('@/assets/icons/'+$img+'.svg')
+    mask-repeat: no-repeat
+    mask-position: center
+    background-color: $color
+
+@mixin flexbox($just, $align, $gap)
+    display: flex
+    justify-content: $just // flex-start
+    align-items: $align // normal
+    gap: $gap // 0
+
+@mixin font($family, $weight, $size)
+    font-family: $family, sans-serif
+    font-weight: $weight
+    font-size: $size
+
+
+// FONTS
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Noto+Sans:wght@400;500;600;700&display=swap')
