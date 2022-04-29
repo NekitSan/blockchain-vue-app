@@ -18,6 +18,10 @@ The blockchain application, cryptocurrency wallet.
 
 
 > # Commands install
+## Project download
+```
+git copy link-project folder-app
+```
 ## Project setup
 ```
 npm install
