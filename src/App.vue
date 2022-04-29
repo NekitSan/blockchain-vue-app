@@ -160,11 +160,9 @@ a
 .wrapper
     position: relative
     max-width: 1920px
-    max-height: 1080px
+    height: 1080px
+    width: 100%
     margin-inline: auto
-
-    width: 100vw
-    height: 100vh
     &::after
         content: ""
         position: absolute
