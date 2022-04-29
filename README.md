@@ -1,3 +1,5 @@
+You can see the work in action at [GitHub Pages](https://nekitsan.github.io/blockchain-vue-app/) 
+
 # blockchain-app
 
 ## Project setup

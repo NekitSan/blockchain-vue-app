@@ -1,10 +1,9 @@
 <template>
-    <div v-if="time_quote" class="entry_field">
+    <div v-if="authoriz.result === true" class="entry_field">
         <input class="input" type="text" placeholder="0" valu="0">
         <span class="entry_field__text">Max</span>
     </div>
-
-    <div v-if="!time_quote" class="input--disable">
+    <div v-else class="input--disable">
         <span class="input--disable__icon"></span>
         <span class="input--disable__text">
             To perform actions on the page, connect your wallet
@@ -16,9 +15,8 @@
     export default {
         name: "base-input",
         props: {
-            time_quote: {
-                type: Boolean,
-                default: false
+            authoriz: {
+                type: [Boolean, Object]
             }
         }
     }

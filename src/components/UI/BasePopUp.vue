@@ -2,7 +2,8 @@
     <div 
         class="pop_up" 
         @click="closePopUp"
-        v-if="hide" 
+        v-if="hide"
+        :class="authorizedAddClass()"
     >
         <div class="pop_up__window">
             <div class="pop_up__button--close" @click="closePopUpDefault"></div>
@@ -26,6 +27,9 @@ export default {
         hide: {
             type: Boolean,
             default: false
+        },
+        authoriz: {
+            type: [Boolean, Object]
         }
     },
     methods: {
@@ -34,6 +38,12 @@ export default {
         {
             if(event.target.classList.contains("pop_up"))
                 this.closePopUpDefault();
+        },
+        authorizedAddClass()
+        {
+            if(this.authoriz.result)
+                return this.authoriz.class;
+            return "";
         }
     }
 }
@@ -70,4 +80,18 @@ export default {
         padding-bottom: 24px
     &__params
         @include flexbox(center, center, 16px)
+
+.authorized
+    .pop_up
+        &__window
+            padding: 64px 56px
+            height: 388px
+        &__title
+            padding-bottom: 24px
+        &__paragraph
+            @include flexbox(flex-start, center, 55px)
+        &__params
+            display: grid
+            grid-template-columns: 100%
+            gap: 44px
 </style>

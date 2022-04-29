@@ -1,9 +1,12 @@
 <template>
 <section class="content">
     <main class="content__window">
-        <div class="content__item">
+        <div class="content__item content__item__header">
             <h1 class="content__title">Staking App</h1>
-            <div class="content__notice_auth">000</div>
+            <div class="content__notice_auth" v-if="authoriz.result === true">
+                <span class="content__notice_auth__text">Wallet approved</span>
+                <span class="content__notice_auth__icon"></span>
+            </div>
         </div>
         <div class="content__item">
             <div class="cell__group">
@@ -16,11 +19,14 @@
             </div>
         </div>
         <div class="content__item">
-            <base-input/>
+            <base-input
+                :authoriz="authoriz"
+            />
         </div>
         <div class="content__item">
             <base-button @click="openPopUp">
-                <slot>Connect wallet</slot>
+                <slot v-if="authoriz.result === true">Stake</slot>
+                <slot v-else>Connect wallet</slot>
             </base-button>
             <base-button class="button__white">
                 <slot>View contract</slot>
@@ -36,15 +42,13 @@ export default {
     components: {
         MainContentTokenCard
     },
-    data() {
-        return {
-            
-        }
-    },
     props: {
         tokenCards: {
             type: Array,
             requred: true,
+        },
+        authoriz: {
+            type: [Boolean, Object]
         }
     },
     methods: {
@@ -72,6 +76,8 @@ export default {
         background-color: #fff
         box-shadow: 0px 16px 44px rgba(78, 102, 120, 0.1)
     &__item
+        &__header
+            @include flexbox(space-between, center, 0)
         &:nth-child(1)
             margin-bottom: 55px
         &:nth-child(2)
@@ -81,6 +87,17 @@ export default {
         &:nth-child(4)
             display: flex
             justify-content: space-between
+    &__notice_auth
+        width: 222px
+        height: 56px
+        background-color: #EFF3F8
+        border-radius: 16px
+        @include flexbox(center, center, 13px)
+        &__text
+            color: #828A97
+            @include font("Noto Sans", 400, 20px)
+        &__icon
+            @include svgIcon(comileted, 24, 24, #45CA72)
             
     &__title
         color: #343840

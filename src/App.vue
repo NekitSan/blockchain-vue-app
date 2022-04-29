@@ -1,32 +1,38 @@
 <template>
 <div class="wrapper">
     <MainHeader
+        :authoriz="authorization"
         @open-popup="popupVisible = $event"
+        :purses="(authorization.result === true) ? purses : null"
     />
-    <MainContentr
+    <MainContent
+        :authoriz="authorization"
         :tokenCards="tokenCards"
         @open-popup="popupVisible = $event"
     />
-
 
     <base-popup
         v-if="authorization"
         @close-popup="closePopup"
         :hide="popupVisible"
-        :authorizat="authorization"
+        :authoriz="authorization"
     >
         <template v-slot:title>Replenish</template>
         <template v-slot:paragraph>
-            Max. amount = <span>1000 TKN</span> <br>
-            Available amount = <span>40 TKN</span>
+            <div class="pop_up__paragraph__value">
+                Max. amount = <span class="--note">1000 TKN</span>
+            </div>
+            <div class="pop_up__paragraph__value">
+                Available amount = <span class="--note">40 TKN</span>
+            </div>
         </template>
         <template v-slot:params>
-            <base-button-connect
-                v-for="buttonConnect in buttonConnects"
-                :buttonConnect="buttonConnect"
-                :key="buttonConnect.id"
-             >
-            </base-button-connect>
+            <base-input
+                :authoriz="authorization"
+            />
+            <base-button>
+                Replenish
+            </base-button>
         </template>
     </base-popup>
 
@@ -42,6 +48,8 @@
                 v-for="buttonConnect in buttonConnects"
                 :buttonConnect="buttonConnect"
                 :key="buttonConnect.id"
+                @authorizat="authorization = authorizat($event)"
+                @close-popup="closePopup"
              >
             </base-button-connect>
         </template>
@@ -51,16 +59,34 @@
 
 <script>
 import MainHeader from "@/components/MainHeader"
-import MainContentr from "@/components/MainContentr"
+import MainContent from "@/components/MainContent"
 
 
 export default {
     components: {
-        MainHeader, MainContentr
+        MainHeader, MainContent
     },
     data() {
         return {
-            authorization: true,
+            authorization: this.authorizat(false),
+
+            purses: [
+                {
+                    id: 1,
+                    hash: "0хCb99...8EBb",
+                    money: "0.029",
+                    coinType: "BUSD",
+                    coinIcon: "busd-coin.png"
+                },
+                {
+                    id: 2,
+                    hash: "0хCb09...821b",
+                    money: "0.000111",
+                    coinType: "ETH",
+                    coinIcon: "eth-coin.png"
+                },
+            ],
+
             popupVisible: false,
             buttonConnects: [
                 {
@@ -90,6 +116,19 @@ export default {
         {
             this.popupVisible = false;
         },
+        fun(e)
+        {
+            console.log(e);
+        },
+        authorizat(event)
+        {
+            if(event === true)
+                return {
+                    result: true,
+                    class: "authorized"
+                };
+            return false;
+        }
     }
 }
 </script>
@@ -142,5 +181,8 @@ a
     font-weight: bold
     letter-spacing: 1px
     padding: 10px
+
+.--note
+    color: $color-red
 
 </style>

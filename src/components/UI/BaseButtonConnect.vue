@@ -1,5 +1,8 @@
 <template>
-    <button class="button_connect">
+    <button 
+        class="button_connect" 
+        @click="inputNetwork"
+    >
         <span 
             class="button_connect__icon"
             :style="'background-image: url(' + require(`@/assets/icons/${buttonConnect.icon}.svg`) + ');'"
@@ -20,6 +23,12 @@
                 requred: true
             }
         },
+        methods: {
+            inputNetwork() {
+                this.$emit("authorizat", true);
+                this.$emit("close-popup", false)
+            }
+        }
     }
 </script>
 

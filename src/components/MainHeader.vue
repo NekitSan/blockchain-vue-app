@@ -12,22 +12,66 @@
                     <a class="menu__link">SHO</a>
                 </li>
             </ul>
+            <select
+                class="header__wallet"
+                v-if="authoriz.result === true"
+                :class="authorizedAddClass()"
+            >
+                <option
+                    v-for="purse in purses"
+                    :key="purse.id"
+                >
+                    <div class="header__wallet__hash">
+                        <!-- <div class="header__wallet__hash__value">{{purse.id}}</div> -->
+                        <!-- <div 
+                            class="header__wallet__hash__icon" 
+                            :style="'background-image: url(' + require(`@/assets/icons/${purse.coinIcon}`) + ');'"
+                        ></div> -->
+                    </div>
+                    <div class="header__wallet__summ">
+                        <div class="header__wallet__hash__value">{{purse.money}}</div>
+                        <div 
+                            class="header__wallet__hash__icon" 
+                            :style="'background-image: url(' + require(`@/assets/icons/${purse.coinIcon}`) + ');'"
+                        ></div>
+                    </div>
+                </option>
+            </select>
+
             <div 
                 class="header__wallet"
                 @click="openPopUp"
+                v-else
             >
                 Connect wallet
             </div>
+            
         </nav>
     </header>
 </template>
 
 <script>
+
 export default {
+    props: {
+        purses: {
+            type: Array,
+            requred: true
+        },
+        authoriz: {
+            type: [Boolean, Object]
+        }
+    },
     methods: {
         openPopUp()
         {
             this.$emit("open-popup", true);
+        },
+        authorizedAddClass()
+        {
+            if(this.authoriz.result)
+                return this.authoriz.class;
+            return "";
         }
     }
 }
@@ -54,6 +98,9 @@ export default {
         line-height: 20px
         background-color: #fff
         cursor: pointer
+        &.authorized
+            width: 314px
+            
 .menu
     @include flexbox(space-between, center, 38px)
     height: 100%

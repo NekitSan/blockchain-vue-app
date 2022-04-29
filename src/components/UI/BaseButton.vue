@@ -1,8 +1,6 @@
 <template>
     <button class="button">
-        <span>
-            <slot class="button__icon" name="icon" v-if="icon">[]</slot>
-        </span>
+        <span class="button__icon" name="icon" v-if="icon"></span>
         <span class="button__text">
             <slot></slot>
         </span>
@@ -13,9 +11,9 @@
     export default {
         name: "base-button",
         props: {
-            icon: { // Переделать в просто слот а css icon написать на родителе
-                type: Boolean,
-                default: false
+            icon: {
+                type: String,
+                default: ""
             }
         }
     }
